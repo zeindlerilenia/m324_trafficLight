@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    tools {nodejs "node"}
+    stages {
+        stage('cloning Repo'){
+            steps {
+                script {
+                    git branch: 'main',
+                    url: 'https://github.com/zeindlerilenia/m324_trafficLight'
+                }
+            }
+        }
+        stage('install jest-cli') {
+            steps {
+                sh 'npm install jest-cli -g'
+            }
+        }
+        stage('install dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage('test') {
+            steps {
+                sh 'npm test'
+            }
+        }
+    }
+}
